@@ -16,24 +16,58 @@ public class Player : MonoBehaviour
     private float turnSmoothVelocity;
 
     private float interactionRange = 3f;
-    private KeyCode interactionKey = KeyCode.E;
+    private KeyCode primaryInteractionKey = KeyCode.E;
+    private KeyCode secondaryInteractionKey = KeyCode.Q;
 
     private Interactable currentInteractable;
+
+    public bool shouldMove;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        shouldMove = true;
     }
 
     private void Update()
     {
-        DoMovement();
+        if(shouldMove)
+        {
+            DoMovement();
+        }
+        
+        DoInteraction();
+    }
 
-        if(Input.GetKeyDown(interactionKey))
+    private void OnTriggerEnter(Collider other)
+    {
+        Interactable interactable = other.GetComponent<Interactable>();
+        if(interactable != null)
+        {
+            currentInteractable = interactable;
+            currentInteractable.Highlight();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Interactable interactable = other.GetComponent<Interactable>();
+        if(interactable == currentInteractable)
+        {
+            currentInteractable.ResetHighlight();
+            currentInteractable = null;
+        }
+    }
+
+    private void DoInteraction()
+    {
+        bool primary = Input.GetKeyDown(primaryInteractionKey);
+        bool secondary = Input.GetKeyDown(secondaryInteractionKey);
+        if(primary || secondary)
         {
             if(currentInteractable != null)
             {
-                PerformInteraction();
+                currentInteractable.Interact(primary);
             }
         }
     }
@@ -72,29 +106,5 @@ public class Player : MonoBehaviour
             controller.Move(moveDir * Time.deltaTime);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Interactable interactable = other.GetComponent<Interactable>();
-        if(interactable != null)
-        {
-            currentInteractable = interactable;
-            currentInteractable.Highlight();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Interactable interactable = other.GetComponent<Interactable>();
-        if(interactable == currentInteractable)
-        {
-            currentInteractable.ResetHighlight();
-            currentInteractable = null;
-        }
-    }
-
-    private void PerformInteraction()
-    {
-        currentInteractable.Interact();
-    }
+    
 }

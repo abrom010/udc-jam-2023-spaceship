@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RefuelTask : Interactable
 {
-    public override void Interact()
+    public override void Interact(bool primary)
     {
 
     }
