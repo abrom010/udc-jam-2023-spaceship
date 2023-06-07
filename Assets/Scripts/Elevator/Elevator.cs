@@ -18,6 +18,7 @@ public class Elevator : Interactable
     void Start()
     {
         currentFloor = 1;
+        hasSecondaryInteraction = true;
     }
 
     void Update()

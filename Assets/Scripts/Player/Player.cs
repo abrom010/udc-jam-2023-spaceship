@@ -22,11 +22,15 @@ public class Player : MonoBehaviour
     private Interactable currentInteractable;
 
     public bool shouldMove;
+    public bool isHoldingCanister;
+    private float fitness;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         shouldMove = true;
+        isHoldingCanister = false;
+        fitness = 100f;
     }
 
     private void Update()
@@ -106,5 +110,30 @@ public class Player : MonoBehaviour
             controller.Move(moveDir * Time.deltaTime);
         }
     }
-    
+
+    public bool IsHoldingCanister()
+    {
+        return isHoldingCanister;
+    }
+
+    public void PickUpCanister()
+    {
+        isHoldingCanister = true;
+    }
+
+    public void UseCanister()
+    {
+        isHoldingCanister = false;
+    }
+
+    public void SetFitness(float fitness)
+    {
+        this.fitness = fitness;
+    }
+
+    public float GetFitness()
+    {
+        return fitness;
+    }
+
 }

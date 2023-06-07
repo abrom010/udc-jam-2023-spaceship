@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CryoMaintenanceTask : Interactable
 {
-    [SerializeField] GameManager gameManager;
     [SerializeField] ParticleSystem particleSystem;
 
     public override void Interact(bool primary)
