@@ -25,16 +25,22 @@ public class Player : MonoBehaviour
     public bool isHoldingCanister;
     private float fitness;
 
+    private Animator animator;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         shouldMove = true;
         isHoldingCanister = false;
         fitness = 100f;
+        animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        
     }
 
     private void Update()
     {
+        animator.SetFloat("CurrentSpeed", controller.velocity.magnitude);
+
         if(shouldMove)
         {
             DoMovement();
