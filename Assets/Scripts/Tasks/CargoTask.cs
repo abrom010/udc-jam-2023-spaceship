@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CargoTask : Interactable
 {
+    // carry canister on player (either on back or hand)
     public override void Interact(bool primary)
     {
-        Player player = gameManager.GetComponent<Player>();
-        if(!player.IsHoldingCanister())
+        if(!GameManager.instance.player.IsHoldingCanister())
         {
-            player.PickUpCanister();
+            GameManager.instance.player.PickUpCanister();
         }
         Destroy(gameObject);
     }

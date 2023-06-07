@@ -2,43 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
+    // Add transition between cycles...
+    // Change scenes, persist GameManager?
+    // use singleton pattern, set player from player, set null when persist
+    public static GameManager instance;
+
     private enum State { Playing, Won, Lost };
     State state = State.Playing;
 
     public SpaceShip spaceShip;
-    public CountdownTimer timer;
+    
 
     private int cycle = 0;
     private int maxCycles = 100;
 
+    public CountdownTimer timer;
+    public Player player;
+
     private void Awake()
     {
-        timer.SetStartTime(5f);
+        DontDestroyOnLoad(this);
+        if(instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     private void Start()
     {
         spaceShip = new SpaceShip();
-        ResumeActiveCycle();
+        OnLoadTimer();
+    }
+
+    public void OnLoadTimer()
+    {
+        timer.SetStartTime(120f);
+        timer.ResetAll();
+        timer.Resume();
     }
 
     private void Update()
     {
-        if(timer.DidTimerHitZero())
+        if(timer != null)
         {
-            EndActiveCycle();
+            if(timer.DidTimerHitZero())
+            {
+                EndActiveCycle();
+            }
         }
+        
     }
 
     private void EndActiveCycle()
     {
         PauseActiveCycle();
         ProcessCycle();
-        ResumeActiveCycle();
     }
 
     private void PauseActiveCycle()
@@ -75,10 +102,12 @@ public class GameManager : MonoBehaviour
         spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.GetFuelPercentage());
         spaceShip.cryoManager.SetCryoPercentage(25f);
         spaceShip.fuelManager.SetFuelPercentage(35f);
-        timer.WindUp();
         Debug.Log("Time ran out. Cycle #" + cycle + " is starting");
         Debug.Log("Cycles: " + cycle);
         Debug.Log("Survivors Left: " + spaceShip.survivorManager.GetSurvivorCount());
+        timer = null;
+        player = null;
+        SceneManager.LoadScene("TransitionScene");
     }
     
 }

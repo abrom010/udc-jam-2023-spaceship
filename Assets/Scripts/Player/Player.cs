@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     private float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
-    private float interactionRange = 3f;
     private KeyCode primaryInteractionKey = KeyCode.E;
     private KeyCode secondaryInteractionKey = KeyCode.Q;
 
@@ -27,14 +26,19 @@ public class Player : MonoBehaviour
 
     private Animator animator;
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
+        GameManager.instance.player = this;
         controller = GetComponent<CharacterController>();
         shouldMove = true;
         isHoldingCanister = false;
         fitness = 100f;
         animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
-        
     }
 
     private void Update()

@@ -9,8 +9,6 @@ public class Interactable : MonoBehaviour
     [SerializeField] protected bool hasSecondaryInteraction;
     [SerializeField] private Renderer renderer;
 
-    [SerializeField] protected GameManager gameManager;
-
     private void Start()
     {
         

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Elevator : Interactable
 {
+    // work on doors open/close
+
     [SerializeField] Transform player;
     [SerializeField] Transform[] floors;
 
@@ -76,5 +78,22 @@ public class Elevator : Interactable
                 isMoving = true;
             }
         }
+    }
+
+    private void OpenFrontDoor()
+    {
+
+    }
+    private void CloseFrontDoor()
+    {
+
+    }
+    private void OpenBackDoor()
+    {
+
+    }
+    private void CloseBackDoor()
+    {
+
     }
 }

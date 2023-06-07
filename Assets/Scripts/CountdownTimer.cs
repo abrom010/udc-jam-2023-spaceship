@@ -15,6 +15,8 @@ public class CountdownTimer : MonoBehaviour
         countdown = startTime;
         isRunning = false;
         hitZero = false;
+        GameManager.instance.timer = this;
+        GameManager.instance.OnLoadTimer();
     }
 
     // Update is called once per frame
@@ -31,6 +33,13 @@ public class CountdownTimer : MonoBehaviour
             countdown = 0;
             hitZero = true;
         }
+    }
+
+    public void ResetAll()
+    {
+        isRunning = false;
+        hitZero = false;
+        countdown = startTime;
     }
 
     public void SetStartTime(float time)
