@@ -26,9 +26,12 @@ public class Player : MonoBehaviour
 
     private Animator animator;
 
+    private GameObject canister;
+
     private void Awake()
     {
-        
+        canister = GameObject.FindGameObjectWithTag("Canister");
+        canister.SetActive(false);
     }
 
     private void Start()
@@ -129,11 +132,15 @@ public class Player : MonoBehaviour
     public void PickUpCanister()
     {
         isHoldingCanister = true;
+        canister.SetActive(true);
+        //transform.GetChild(2).gameObject.SetActive(true);
     }
 
     public void UseCanister()
     {
         isHoldingCanister = false;
+        //transform.GetChild(2).gameObject.SetActive(false);
+        canister.SetActive(false);
     }
 
     public void SetFitness(float fitness)

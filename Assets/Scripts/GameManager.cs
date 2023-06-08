@@ -7,9 +7,6 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
-    // Add transition between cycles...
-    // Change scenes, persist GameManager?
-    // use singleton pattern, set player from player, set null when persist
     public static GameManager instance;
 
     private enum State { Playing, Won, Lost };
