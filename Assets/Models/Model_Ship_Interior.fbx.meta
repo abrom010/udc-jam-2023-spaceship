@@ -3,9 +3,19 @@ guid: 2648fc15f0306cc429d319adaf73a18e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Interior_Halls
+    second: {fileID: 2100000, guid: e64ac2bb62606a04dbcca039ba4c009f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Interior_Industrial
+    second: {fileID: 2100000, guid: 1786c1452afd6114fa6dfca3173b9487, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
