@@ -6,11 +6,11 @@ public class RefuelTask : Interactable
 {
     public override void Interact(bool primary)
     {
-        Player player = gameManager.GetComponent<Player>();
-        if(player.IsHoldingCanister())
+        if(GameManager.instance.player.IsHoldingCanister())
         {
-            player.UseCanister();
-            gameManager.spaceShip.fuelManager.SetFuelPercentage(100f);
+            GameManager.instance.player.UseCanister();
+            GameManager.instance.spaceShip.fuelManager.SetFuelPercentage(GameManager.instance.spaceShip.fuelManager.GetFuelPercentage() + 25f);
+            if(GameManager.instance.spaceShip.fuelManager.GetFuelPercentage() > 100f) GameManager.instance.spaceShip.fuelManager.SetFuelPercentage(100f);
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Elevator : Interactable
 {
+    // work on doors open/close
+
     [SerializeField] Transform player;
     [SerializeField] Transform[] floors;
 
@@ -15,10 +17,17 @@ public class Elevator : Interactable
     public bool isMoving;
     public bool isGoingUp;
 
+    bool frontDoorClosed;
+    bool backDoorClosed;
+
     void Start()
     {
         currentFloor = 1;
         hasSecondaryInteraction = true;
+
+        frontDoorClosed = true;
+        backDoorClosed = true;
+       // OpenFrontDoor();
     }
 
     void Update()
@@ -38,6 +47,15 @@ public class Elevator : Interactable
                     elapsedTime = 0;
                     currentFloor++;
                     player.gameObject.GetComponent<Player>().shouldMove = true;
+                    if(currentFloor == 1)
+                    {
+                       // OpenFrontDoor();
+                    }
+                    else
+                    {
+                       // OpenBackDoor();
+                    }
+                    
                 }
             }
             else
@@ -50,6 +68,14 @@ public class Elevator : Interactable
                     elapsedTime = 0;
                     currentFloor--;
                     player.gameObject.GetComponent<Player>().shouldMove = true;
+                    if(currentFloor == 1)
+                    {
+                       // OpenFrontDoor();
+                    } 
+                    else
+                    {
+                        //OpenBackDoor();
+                    }
                 }
             }
         }
@@ -66,6 +92,8 @@ public class Elevator : Interactable
                 player.gameObject.GetComponent<Player>().shouldMove = false;
                 isGoingUp = true;
                 isMoving = true;
+                CloseFrontDoor();
+                CloseBackDoor();
             } 
             else
             {
@@ -74,7 +102,48 @@ public class Elevator : Interactable
                 player.gameObject.GetComponent<Player>().shouldMove = false;
                 isGoingUp = false;
                 isMoving = true;
+                CloseFrontDoor();
+                CloseBackDoor();
             }
         }
     }
+
+    private void OpenFrontDoor()
+    {
+        if(!frontDoorClosed) return;
+        frontDoorClosed = false;
+        Vector3 firstDoorPos = transform.GetChild(0).GetChild(0).position;
+        Vector3 secondDoorPos = transform.GetChild(0).GetChild(1).position;
+        transform.GetChild(0).GetChild(0).position = new Vector3(firstDoorPos.x + 3f, firstDoorPos.y, firstDoorPos.z);
+        transform.GetChild(0).GetChild(1).position = new Vector3(secondDoorPos.x - 3f, secondDoorPos.y, secondDoorPos.z);
+    }
+    private void CloseFrontDoor()
+    {
+        if(frontDoorClosed) return;
+        frontDoorClosed = true;
+        Vector3 firstDoorPos = transform.GetChild(0).GetChild(0).position;
+        Vector3 secondDoorPos = transform.GetChild(0).GetChild(1).position;
+        transform.GetChild(0).GetChild(0).position = new Vector3(firstDoorPos.x - 3f, firstDoorPos.y, firstDoorPos.z);
+        transform.GetChild(0).GetChild(1).position = new Vector3(secondDoorPos.x + 3f, secondDoorPos.y, secondDoorPos.z);
+    }
+
+    private void OpenBackDoor()
+    {
+        if(!backDoorClosed) return;
+        backDoorClosed = false;
+        Vector3 firstDoorPos = transform.GetChild(0).GetChild(2).position;
+        Vector3 secondDoorPos = transform.GetChild(0).GetChild(3).position;
+        transform.GetChild(0).GetChild(2).position = new Vector3(firstDoorPos.x + 3f, firstDoorPos.y, firstDoorPos.z);
+        transform.GetChild(0).GetChild(3).position = new Vector3(secondDoorPos.x - 3f, secondDoorPos.y, secondDoorPos.z);
+    }
+    private void CloseBackDoor()
+    {
+        if(backDoorClosed) return;
+        backDoorClosed = true;
+        Vector3 firstDoorPos = transform.GetChild(0).GetChild(2).position;
+        Vector3 secondDoorPos = transform.GetChild(0).GetChild(3).position;
+        transform.GetChild(0).GetChild(2).position = new Vector3(firstDoorPos.x - 3f, firstDoorPos.y, firstDoorPos.z);
+        transform.GetChild(0).GetChild(3).position = new Vector3(secondDoorPos.x + 3f, secondDoorPos.y, secondDoorPos.z);
+    }
+    
 }

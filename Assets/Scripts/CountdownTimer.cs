@@ -9,15 +9,15 @@ public class CountdownTimer : MonoBehaviour
     private bool hitZero;
     private float startTime;
 
-    // Start is called before the first frame update
     void Start()
     {
         countdown = startTime;
         isRunning = false;
         hitZero = false;
+        GameManager.instance.timer = this;
+        GameManager.instance.OnLoadTimer();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isRunning)
@@ -31,6 +31,13 @@ public class CountdownTimer : MonoBehaviour
             countdown = 0;
             hitZero = true;
         }
+    }
+
+    public void ResetAll()
+    {
+        isRunning = false;
+        hitZero = false;
+        countdown = startTime;
     }
 
     public void SetStartTime(float time)
