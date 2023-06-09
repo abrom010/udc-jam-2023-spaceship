@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 6527108748903058890}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4402561821999235523
 BoxCollider:
@@ -67,10 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932251deefac5eb49a8959849322a31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalMaterial: {fileID: 2100000, guid: e64ac2bb62606a04dbcca039ba4c009f, type: 2}
-  highlightMaterial: {fileID: 2100000, guid: fbbd4f9c7b127f8499820256a3711f84, type: 2}
+  highlight: {fileID: 3231991636864327787}
   hasSecondaryInteraction: 0
-  renderer: {fileID: 5564028629151576796}
 --- !u!1001 &6709883706767272481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,6 +142,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh_Highlight
       objectReference: {fileID: 0}
+    - target: {fileID: -1025663018108745142, guid: 5bbffb9af89166d4795d0e6d65ba2d6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5bbffb9af89166d4795d0e6d65ba2d6a,
         type: 3}
       propertyPath: m_Name
@@ -159,9 +162,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bbffb9af89166d4795d0e6d65ba2d6a, type: 3}
---- !u!23 &5564028629151576796 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -8058860437327472387, guid: 5bbffb9af89166d4795d0e6d65ba2d6a,
+--- !u!1 &3231991636864327787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1025663018108745142, guid: 5bbffb9af89166d4795d0e6d65ba2d6a,
     type: 3}
   m_PrefabInstance: {fileID: 6709883706767272481}
   m_PrefabAsset: {fileID: 0}
