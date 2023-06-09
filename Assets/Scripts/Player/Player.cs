@@ -24,12 +24,18 @@ public class Player : MonoBehaviour
     public bool isHoldingCanister;
     private float fitness;
 
-    private Animator animator;
+    public Animator animator;
 
     private GameObject canister;
 
+    public bool isStationary;
+
+    Vector3 pos, velocity;
+
     private void Awake()
     {
+        isStationary = false;
+        pos = transform.position;
         canister = GameObject.FindGameObjectWithTag("Canister");
         canister.SetActive(false);
     }
@@ -46,7 +52,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        animator.SetFloat("CurrentSpeed", controller.velocity.magnitude);
+        velocity = (transform.position - pos) / Time.deltaTime;
+        pos = transform.position;
+
+        if(!isStationary)
+        {
+            animator.SetFloat("CurrentSpeed", velocity.magnitude);
+        }
 
         if(shouldMove)
         {

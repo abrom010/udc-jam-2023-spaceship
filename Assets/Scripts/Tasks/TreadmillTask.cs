@@ -7,12 +7,16 @@ public class TreadmillTask : Interactable
     public bool isExercising;
 
     [SerializeField] private Transform treadmillFront;
+    [SerializeField] private Transform treadmillMiddle;
     [SerializeField] private Transform treadmillBack;
 
     private Vector3 treadmillDirection;
 
+    private AudioSource audioSource;
+
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         hasSecondaryInteraction = true;
         treadmillDirection = (treadmillFront.position - treadmillBack.position).normalized;
     }
@@ -23,17 +27,19 @@ public class TreadmillTask : Interactable
         {
             if(Input.GetKey(KeyCode.W))
             {
-                GameManager.instance.player.transform.position += treadmillDirection * Time.deltaTime;
-                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() + Time.deltaTime);
+                GameManager.instance.player.animator.speed = 3f;
+                GameManager.instance.player.transform.position += treadmillDirection * Time.deltaTime * 2f;
+                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() >= 100f ? 100f : GameManager.instance.player.GetFitness() + Time.deltaTime * 5f);
             }
             else
             {
+                GameManager.instance.player.animator.speed = 1.5f;
                 GameManager.instance.player.transform.position -= treadmillDirection * Time.deltaTime;
+                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() >= 100f ? 100f : GameManager.instance.player.GetFitness() + Time.deltaTime * 5f);
             }
 
             // player falls off treadmill
-            if((Vector3.Distance(GameManager.instance.player.transform.position, transform.position) >= Vector3.Distance(treadmillFront.position, transform.position))
-                || (Vector3.Distance(GameManager.instance.player.transform.position, transform.position) >= Vector3.Distance(treadmillBack.position, transform.position)))
+            if(Vector3.Distance(GameManager.instance.player.transform.position, treadmillMiddle.position) >= Vector3.Distance(treadmillFront.position, treadmillMiddle.position))
             {
                 StopExercising();
             }
@@ -61,15 +67,17 @@ public class TreadmillTask : Interactable
     private void StartExcercising()
     {
         GameManager.instance.player.shouldMove = false;
-        GameManager.instance.player.transform.position = new Vector3(transform.position.x, GameManager.instance.player.transform.position.y, transform.position.z);
+        GameManager.instance.player.gameObject.transform.position = treadmillMiddle.position;
+        GameManager.instance.player.gameObject.transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, 90f, transform.rotation.z));
         isExercising = true;
+        audioSource.Play();
     }
 
     private void StopExercising()
     {
+        GameManager.instance.player.animator.speed = 1f;
         isExercising = false;
-        GameManager.instance.player.transform.position = new Vector3(treadmillBack.position.x, treadmillBack.position.y, treadmillBack.position.z - 5f);
         GameManager.instance.player.shouldMove = true;
-        
+        audioSource.Stop();
     }
 }

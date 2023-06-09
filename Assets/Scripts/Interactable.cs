@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] private Material originalMaterial;
-    [SerializeField] private Material highlightMaterial;
+    [SerializeField] GameObject highlight;
     [SerializeField] protected bool hasSecondaryInteraction;
-    [SerializeField] private Renderer renderer;
 
     private void Start()
     {
@@ -19,13 +17,13 @@ public class Interactable : MonoBehaviour
         
     }
 
-    public void Highlight()
+    public virtual void Highlight()
     {
-        renderer.material = highlightMaterial;
+        highlight.SetActive(true);
     }
 
-    public void ResetHighlight()
+    public virtual void ResetHighlight()
     {
-        renderer.material = originalMaterial;
+        highlight.SetActive(false);
     }
 }

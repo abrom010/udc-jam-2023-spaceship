@@ -20,6 +20,14 @@ public class Elevator : Interactable
     bool frontDoorClosed;
     bool backDoorClosed;
 
+    [SerializeField] Transform frontDoor1;
+    [SerializeField] Transform frontDoor2;
+    [SerializeField] Transform backDoor1;
+    [SerializeField] Transform backDoor2;
+
+    [SerializeField] AudioClip elevatorDingClip;
+    [SerializeField] AudioClip elevatorTravelClip;
+
     void Start()
     {
         currentFloor = 1;
@@ -27,7 +35,7 @@ public class Elevator : Interactable
 
         frontDoorClosed = true;
         backDoorClosed = true;
-       // OpenFrontDoor();
+        OpenFrontDoor();
     }
 
     void Update()
@@ -42,6 +50,8 @@ public class Elevator : Interactable
                 transform.position = Vector3.Lerp(floors[currentFloor].position, floors[currentFloor + 1].position, percentageComplete);
                 if(transform.position.y >= floors[currentFloor + 1].position.y)
                 {
+                    AudioSource.PlayClipAtPoint(elevatorDingClip, transform.position, 0.5f);
+                    GameManager.instance.player.isStationary = false;
                     player.parent = null;
                     isMoving = false;
                     elapsedTime = 0;
@@ -49,11 +59,11 @@ public class Elevator : Interactable
                     player.gameObject.GetComponent<Player>().shouldMove = true;
                     if(currentFloor == 1)
                     {
-                       // OpenFrontDoor();
+                        OpenFrontDoor();
                     }
                     else
                     {
-                       // OpenBackDoor();
+                        OpenBackDoor();
                     }
                     
                 }
@@ -63,6 +73,8 @@ public class Elevator : Interactable
                 transform.position = Vector3.Lerp(floors[currentFloor].position, floors[currentFloor - 1].position, percentageComplete);
                 if(transform.position.y <= floors[currentFloor - 1].position.y)
                 {
+                    AudioSource.PlayClipAtPoint(elevatorDingClip, transform.position, 0.5f);
+                    GameManager.instance.player.isStationary = false;
                     player.parent = null;
                     isMoving = false;
                     elapsedTime = 0;
@@ -70,11 +82,11 @@ public class Elevator : Interactable
                     player.gameObject.GetComponent<Player>().shouldMove = true;
                     if(currentFloor == 1)
                     {
-                       // OpenFrontDoor();
+                        OpenFrontDoor();
                     } 
                     else
                     {
-                        //OpenBackDoor();
+                        OpenBackDoor();
                     }
                 }
             }
@@ -85,9 +97,11 @@ public class Elevator : Interactable
     {
         if(!isMoving)
         {
+            AudioSource.PlayClipAtPoint(elevatorTravelClip, transform.position, 0.4f);
             if(primary)
             {
-                if(currentFloor >= floors.Length) return;
+                if(currentFloor >= floors.Length - 1) return;
+                GameManager.instance.player.isStationary = true;
                 player.parent = transform;
                 player.gameObject.GetComponent<Player>().shouldMove = false;
                 isGoingUp = true;
@@ -97,7 +111,8 @@ public class Elevator : Interactable
             } 
             else
             {
-                if(currentFloor < 0) return;
+                if(currentFloor <= 0) return;
+                GameManager.instance.player.isStationary = true;
                 player.parent = transform;
                 player.gameObject.GetComponent<Player>().shouldMove = false;
                 isGoingUp = false;
@@ -112,38 +127,38 @@ public class Elevator : Interactable
     {
         if(!frontDoorClosed) return;
         frontDoorClosed = false;
-        Vector3 firstDoorPos = transform.GetChild(0).GetChild(0).position;
-        Vector3 secondDoorPos = transform.GetChild(0).GetChild(1).position;
-        transform.GetChild(0).GetChild(0).position = new Vector3(firstDoorPos.x + 3f, firstDoorPos.y, firstDoorPos.z);
-        transform.GetChild(0).GetChild(1).position = new Vector3(secondDoorPos.x - 3f, secondDoorPos.y, secondDoorPos.z);
+        Vector3 firstDoorPos = frontDoor1.position;
+        Vector3 secondDoorPos = frontDoor2.position;
+        frontDoor1.position = new Vector3(firstDoorPos.x - 3f, firstDoorPos.y, firstDoorPos.z);
+        frontDoor2.position = new Vector3(secondDoorPos.x + 3f, secondDoorPos.y, secondDoorPos.z);
     }
     private void CloseFrontDoor()
     {
         if(frontDoorClosed) return;
         frontDoorClosed = true;
-        Vector3 firstDoorPos = transform.GetChild(0).GetChild(0).position;
-        Vector3 secondDoorPos = transform.GetChild(0).GetChild(1).position;
-        transform.GetChild(0).GetChild(0).position = new Vector3(firstDoorPos.x - 3f, firstDoorPos.y, firstDoorPos.z);
-        transform.GetChild(0).GetChild(1).position = new Vector3(secondDoorPos.x + 3f, secondDoorPos.y, secondDoorPos.z);
+        Vector3 firstDoorPos = frontDoor1.position;
+        Vector3 secondDoorPos = frontDoor2.position;
+        frontDoor1.position = new Vector3(firstDoorPos.x + 3f, firstDoorPos.y, firstDoorPos.z);
+        frontDoor2.position = new Vector3(secondDoorPos.x - 3f, secondDoorPos.y, secondDoorPos.z);
     }
 
     private void OpenBackDoor()
     {
         if(!backDoorClosed) return;
         backDoorClosed = false;
-        Vector3 firstDoorPos = transform.GetChild(0).GetChild(2).position;
-        Vector3 secondDoorPos = transform.GetChild(0).GetChild(3).position;
-        transform.GetChild(0).GetChild(2).position = new Vector3(firstDoorPos.x + 3f, firstDoorPos.y, firstDoorPos.z);
-        transform.GetChild(0).GetChild(3).position = new Vector3(secondDoorPos.x - 3f, secondDoorPos.y, secondDoorPos.z);
+        Vector3 firstDoorPos = backDoor1.position;
+        Vector3 secondDoorPos = backDoor2.position;
+        backDoor1.position = new Vector3(firstDoorPos.x - 3f, firstDoorPos.y, firstDoorPos.z);
+        backDoor2.position = new Vector3(secondDoorPos.x + 3f, secondDoorPos.y, secondDoorPos.z);
     }
     private void CloseBackDoor()
     {
         if(backDoorClosed) return;
         backDoorClosed = true;
-        Vector3 firstDoorPos = transform.GetChild(0).GetChild(2).position;
-        Vector3 secondDoorPos = transform.GetChild(0).GetChild(3).position;
-        transform.GetChild(0).GetChild(2).position = new Vector3(firstDoorPos.x - 3f, firstDoorPos.y, firstDoorPos.z);
-        transform.GetChild(0).GetChild(3).position = new Vector3(secondDoorPos.x + 3f, secondDoorPos.y, secondDoorPos.z);
+        Vector3 firstDoorPos = backDoor1.position;
+        Vector3 secondDoorPos = backDoor2.position;
+        backDoor1.position = new Vector3(firstDoorPos.x + 3f, firstDoorPos.y, firstDoorPos.z);
+        backDoor2.position = new Vector3(secondDoorPos.x - 3f, secondDoorPos.y, secondDoorPos.z);
     }
     
 }

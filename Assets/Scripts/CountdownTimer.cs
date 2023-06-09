@@ -65,4 +65,9 @@ public class CountdownTimer : MonoBehaviour
     {
         return hitZero;
     }
+
+    public float GetTime()
+    {
+        return countdown;
+    }
 }
