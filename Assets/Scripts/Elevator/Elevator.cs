@@ -27,7 +27,7 @@ public class Elevator : Interactable
 
         frontDoorClosed = true;
         backDoorClosed = true;
-        OpenFrontDoor();
+       // OpenFrontDoor();
     }
 
     void Update()
@@ -49,11 +49,11 @@ public class Elevator : Interactable
                     player.gameObject.GetComponent<Player>().shouldMove = true;
                     if(currentFloor == 1)
                     {
-                        OpenFrontDoor();
+                       // OpenFrontDoor();
                     }
                     else
                     {
-                        OpenBackDoor();
+                       // OpenBackDoor();
                     }
                     
                 }
@@ -70,11 +70,11 @@ public class Elevator : Interactable
                     player.gameObject.GetComponent<Player>().shouldMove = true;
                     if(currentFloor == 1)
                     {
-                        OpenFrontDoor();
+                       // OpenFrontDoor();
                     } 
                     else
                     {
-                        OpenBackDoor();
+                        //OpenBackDoor();
                     }
                 }
             }
