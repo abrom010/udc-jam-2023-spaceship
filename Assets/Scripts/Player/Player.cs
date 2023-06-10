@@ -59,6 +59,10 @@ public class Player : MonoBehaviour
         {
             animator.SetFloat("CurrentSpeed", velocity.magnitude);
         }
+        else
+        {
+            animator.SetFloat("CurrentSpeed", 0);
+        }
 
         if(shouldMove)
         {

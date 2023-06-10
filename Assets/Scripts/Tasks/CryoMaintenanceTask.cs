@@ -11,9 +11,13 @@ public class CryoMaintenanceTask : Interactable
 
     public override void Interact(bool primary)
     {
-        GameManager.instance.spaceShip.cryoManager.SetCryoPercentage(GameManager.instance.spaceShip.cryoManager.GetCryoPercentage() >= 100f ? 100f : GameManager.instance.spaceShip.cryoManager.GetCryoPercentage() + 1f);
-        particles?.Play();
-
-        AudioSource.PlayClipAtPoint(iceCubeClip, transform.position, 0.5f);
+        if(GameManager.instance.spaceShip.cryoManager.GetCryoPercentage() < 100f)
+        {
+            GameManager.instance.spaceShip.cryoManager.SetCryoPercentage(GameManager.instance.spaceShip.cryoManager.GetCryoPercentage() + 1f);
+            particles?.Play();
+            AudioSource.PlayClipAtPoint(iceCubeClip, transform.position, 0.5f);
+            GameManager.instance.UpdateTerminalUI();
+        }
+        
     }
 }

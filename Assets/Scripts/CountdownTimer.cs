@@ -14,8 +14,9 @@ public class CountdownTimer : MonoBehaviour
         countdown = startTime;
         isRunning = false;
         hitZero = false;
+        if(GameManager.instance == null) Debug.Log("NULL");
         GameManager.instance.timer = this;
-        GameManager.instance.OnLoadTimer(transform.root);
+        GameManager.instance.OnLoadTimer();
     }
 
     void Update()
