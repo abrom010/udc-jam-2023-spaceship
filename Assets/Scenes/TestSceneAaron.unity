@@ -408,6 +408,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5599589644356740936, guid: fff30718a0481934889dd4bb052261cd,
+        type: 3}
+      propertyPath: particles
+      value: 
+      objectReference: {fileID: 1611402225}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -714,6 +719,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1611402225 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5893894485811626379, guid: fff30718a0481934889dd4bb052261cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 496910898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1902704694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1234,12 +1245,12 @@ PrefabInstance:
     - target: {fileID: 6877716890865102612, guid: 58ca39d4581e7b64b8da6fa45e6f5e5b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000011340126
+      value: 0.0000000309818
       objectReference: {fileID: 0}
     - target: {fileID: 6877716890865102612, guid: 58ca39d4581e7b64b8da6fa45e6f5e5b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000029670226
+      value: -0.000000008106058
       objectReference: {fileID: 0}
     - target: {fileID: 8989421750779360298, guid: 58ca39d4581e7b64b8da6fa45e6f5e5b,
         type: 3}

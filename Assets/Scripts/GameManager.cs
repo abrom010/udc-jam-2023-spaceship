@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using System;
+using System.Data;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,12 +48,16 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-        OnLoadTimer();
+
+        spaceShip.cryoManager.ComputeCycleCryoPercentage();
+        spaceShip.fuelManager.ComputeCycleFuelPercentage();
+
+        OnLoadTimer(transform.root);
     }
 
-    public void OnLoadTimer()
+    public void OnLoadTimer(Transform root)
     {
+        transform.parent = root;
         fitnessBar = GameObject.Find("Image Fitness Bar").GetComponent<Image>();
         survivorText = GameObject.Find("Text Value Survivors").GetComponent<Text>();
         cryoText = GameObject.Find("Text Value Cryo").GetComponent<Text>();
@@ -63,7 +68,7 @@ public class GameManager : MonoBehaviour
         cryoText.text = spaceShip.cryoManager.GetCryoPercentage().ToString();
         fuelText.text = spaceShip.fuelManager.GetFuelPercentage().ToString();
 
-        timer.SetStartTime(120f);
+        timer.SetStartTime(5f);
         timer.ResetAll();
         timer.Resume();
     }
@@ -133,13 +138,18 @@ public class GameManager : MonoBehaviour
         cycle++;
         spaceShip.survivorManager.ComputeSurvivorsForCycle(spaceShip.cryoManager.GetCryoPercentage());
         spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.GetFuelPercentage());
-        spaceShip.cryoManager.SetCryoPercentage(25f);
-        spaceShip.fuelManager.SetFuelPercentage(35f);
-        Debug.Log("Time ran out. Cycle #" + cycle + " is starting");
+        spaceShip.cryoManager.ComputeCycleCryoPercentage();
+        spaceShip.fuelManager.ComputeCycleFuelPercentage();
+
+        /*Debug.Log("Time ran out. Cycle #" + cycle + " is starting");
         Debug.Log("Cycles: " + cycle);
-        Debug.Log("Survivors Left: " + spaceShip.survivorManager.GetSurvivorCount());
+        Debug.Log("Survivors Left: " + spaceShip.survivorManager.GetSurvivorCount());*/
+
+        Destroy(timer.gameObject);
+        Destroy(player.gameObject);
         timer = null;
         player = null;
+
         SceneManager.LoadScene("TransitionScene");
     }
     
