@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         cryoText.text = spaceShip.cryoManager.GetCryoPercentage().ToString();
         fuelText.text = spaceShip.fuelManager.GetFuelPercentage().ToString();
 
-        timer.SetStartTime(5f);
+        timer.SetStartTime(120f);
         timer.ResetAll();
         timer.Resume();
     }
