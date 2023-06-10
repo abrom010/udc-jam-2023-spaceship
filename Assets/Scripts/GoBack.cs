@@ -5,9 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GoBack : MonoBehaviour
 {
+    public float TransitionTime = 1f;
+
     void Start()
     {
-        SceneManager.LoadScene("TestSceneAaron");
+        StartCoroutine(TransitionTimer(TransitionTime));
     }
 
+    IEnumerator TransitionTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene("TestSceneAaron");
+    }
 }

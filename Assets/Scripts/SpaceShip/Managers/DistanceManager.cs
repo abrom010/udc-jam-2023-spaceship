@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DistanceManager
 {
-    private float totalDistanceTraveled;
-    private float goalDistance;
+    public float totalDistanceTraveled;
+    public float goalDistance;
 
     private float fuelEfficiency;
 
