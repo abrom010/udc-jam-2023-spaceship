@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class CryoManager
@@ -18,6 +19,13 @@ public class CryoManager
 
     public float GetCryoPercentage()
     {
+        return cryoPercentage;
+    }
+
+    public float ComputeCycleCryoPercentage()
+    {
+        float randomDeduction = Random.Range(10, 30);
+        cryoPercentage = cryoPercentage - randomDeduction >= 0 ? cryoPercentage - randomDeduction : 0;
         return cryoPercentage;
     }
 }
