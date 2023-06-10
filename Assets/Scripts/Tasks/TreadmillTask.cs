@@ -14,6 +14,8 @@ public class TreadmillTask : Interactable
 
     private AudioSource audioSource;
 
+    [SerializeField] private float exerciseRate = 8f;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -29,7 +31,7 @@ public class TreadmillTask : Interactable
             {
                 GameManager.instance.player.animator.speed = 3f;
                 GameManager.instance.player.transform.position += treadmillDirection * Time.deltaTime * 2f;
-                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() >= 100f ? 100f : GameManager.instance.player.GetFitness() + Time.deltaTime * 5f);
+                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() >= 100f ? 100f : GameManager.instance.player.GetFitness() + Time.deltaTime * exerciseRate);
             }
             else
             {

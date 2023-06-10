@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public SpaceShip spaceShip;
     
 
-    private int cycle = 0;
+    public int cycle = 0;
     private int maxCycles = 100;
 
     public CountdownTimer timer;
@@ -30,17 +30,20 @@ public class GameManager : MonoBehaviour
     Text fuelText;
     Text timerText;
 
+    [SerializeField] private float cycleTime;
+
     private void Awake()
     {
-        DontDestroyOnLoad(this);
-        if(instance != null && instance != this)
-        {
-            Destroy(this);
-        }
-        else
+        if(instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else if(instance != this)
+        {
+            Destroy(gameObject);
+            return;
         }
+
         spaceShip = new SpaceShip();
     }
 
@@ -48,29 +51,31 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        spaceShip.cryoManager.ComputeCycleCryoPercentage();
-        spaceShip.fuelManager.ComputeCycleFuelPercentage();
-
-        OnLoadTimer(transform.root);
     }
 
-    public void OnLoadTimer(Transform root)
+    public void OnLoadTimer()
     {
-        transform.parent = root;
         fitnessBar = GameObject.Find("Image Fitness Bar").GetComponent<Image>();
         survivorText = GameObject.Find("Text Value Survivors").GetComponent<Text>();
         cryoText = GameObject.Find("Text Value Cryo").GetComponent<Text>();
         fuelText = GameObject.Find("Text Value Fuel").GetComponent<Text>();
         timerText = GameObject.Find("Text Value Timer").GetComponent<Text>();
 
+        spaceShip.cryoManager.ComputeCycleCryoPercentage();
+        spaceShip.fuelManager.ComputeCycleFuelPercentage();
+
+        UpdateTerminalUI();
+
+        timer.SetStartTime(cycleTime);
+        timer.ResetAll();
+        timer.Resume();
+    }
+
+    public void UpdateTerminalUI()
+    {
         survivorText.text = spaceShip.survivorManager.GetSurvivorCount().ToString();
         cryoText.text = spaceShip.cryoManager.GetCryoPercentage().ToString();
         fuelText.text = spaceShip.fuelManager.GetFuelPercentage().ToString();
-
-        timer.SetStartTime(120f);
-        timer.ResetAll();
-        timer.Resume();
     }
 
     private void Update()
@@ -138,8 +143,11 @@ public class GameManager : MonoBehaviour
         cycle++;
         spaceShip.survivorManager.ComputeSurvivorsForCycle(spaceShip.cryoManager.GetCryoPercentage());
         spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.GetFuelPercentage());
+
         spaceShip.cryoManager.ComputeCycleCryoPercentage();
         spaceShip.fuelManager.ComputeCycleFuelPercentage();
+
+        //Debug.Log(spaceShip.fuelManager.GetFuelPercentage());
 
         /*Debug.Log("Time ran out. Cycle #" + cycle + " is starting");
         Debug.Log("Cycles: " + cycle);
