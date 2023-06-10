@@ -23,7 +23,7 @@ public class FuelManager
 
     public float ComputeCycleFuelPercentage()
     {
-        float randomDeduction = Random.Range(10, 25);
+        float randomDeduction = Random.Range(10, 50);
         fuelPercentage = fuelPercentage - randomDeduction >= 0 ? fuelPercentage - randomDeduction : 0;
         return fuelPercentage;
     }

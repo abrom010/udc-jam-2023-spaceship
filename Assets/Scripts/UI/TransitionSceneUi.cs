@@ -11,7 +11,7 @@ public class TransitionSceneUi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CycleValue.text = (GameManager.instance.cycle + 1).ToString();
+        CycleValue.text = GameManager.instance.cycle.ToString();
         DistanceValue.text = (GameManager.instance.spaceShip.distanceManager.goalDistance - GameManager.instance.spaceShip.distanceManager.totalDistanceTraveled).ToString();
     }
 }

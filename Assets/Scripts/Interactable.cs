@@ -5,7 +5,10 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] GameObject highlight;
-    [SerializeField] protected bool hasSecondaryInteraction;
+    public bool hasSecondaryInteraction;
+
+    public string etext = "interact";
+    public string qtext = "other";
 
     private void Start()
     {
