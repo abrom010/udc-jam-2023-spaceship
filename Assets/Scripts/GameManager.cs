@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public SpaceShip spaceShip;
     
 
-    public int cycle = 0;
+    public int cycle = 1;
     private int maxCycles = 100;
 
     public CountdownTimer timer;
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         timer = null;
         player = null;
 
-        SceneManager.LoadScene("TransitionScene");
+        SceneManager.LoadScene("TransitionScene_B");
     }
     
 }
