@@ -9,12 +9,20 @@ public class GoBack : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(TransitionTimer(TransitionTime));
+        //StartCoroutine(TransitionTimer(TransitionTime));
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
+        {
+            SceneManager.LoadScene("TestSceneAaron");
+        }
     }
 
     IEnumerator TransitionTimer(float time)
     {
         yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("TestSceneAaron");
+
     }
 }

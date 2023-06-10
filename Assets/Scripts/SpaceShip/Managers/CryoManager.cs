@@ -24,7 +24,7 @@ public class CryoManager
 
     public float ComputeCycleCryoPercentage()
     {
-        float randomDeduction = Random.Range(10, 30);
+        float randomDeduction = Random.Range(10, 40);
         cryoPercentage = cryoPercentage - randomDeduction >= 0 ? cryoPercentage - randomDeduction : 0;
         return cryoPercentage;
     }

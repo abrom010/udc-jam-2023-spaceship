@@ -30,6 +30,8 @@ public class Elevator : Interactable
 
     void Start()
     {
+        etext = "up";
+        qtext = "down";
         currentFloor = 1;
         hasSecondaryInteraction = true;
 
@@ -97,10 +99,10 @@ public class Elevator : Interactable
     {
         if(!isMoving)
         {
-            AudioSource.PlayClipAtPoint(elevatorTravelClip, transform.position, 0.4f);
             if(primary)
             {
                 if(currentFloor >= floors.Length - 1) return;
+                AudioSource.PlayClipAtPoint(elevatorTravelClip, transform.position, 0.4f);
                 GameManager.instance.player.isStationary = true;
                 player.parent = transform;
                 player.gameObject.GetComponent<Player>().shouldMove = false;
@@ -112,6 +114,7 @@ public class Elevator : Interactable
             else
             {
                 if(currentFloor <= 0) return;
+                AudioSource.PlayClipAtPoint(elevatorTravelClip, transform.position, 0.4f);
                 GameManager.instance.player.isStationary = true;
                 player.parent = transform;
                 player.gameObject.GetComponent<Player>().shouldMove = false;

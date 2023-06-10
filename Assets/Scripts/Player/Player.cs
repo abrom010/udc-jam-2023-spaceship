@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     private CharacterController controller;
     [SerializeField] private Transform cam;
 
-    private float speed = 6f;
+    private float speed = 8f;
     private float jumpForce = 2f;
     private float gravity = -20f;
     private float verticalVelocity;
@@ -31,6 +32,9 @@ public class Player : MonoBehaviour
     public bool isStationary;
 
     Vector3 pos, velocity;
+
+    public GameObject pressE;
+    public GameObject pressQ;
 
     private void Awake()
     {
@@ -79,6 +83,14 @@ public class Player : MonoBehaviour
         {
             currentInteractable = interactable;
             currentInteractable.Highlight();
+
+            pressE.GetComponent<Text>().text = "[E] " + currentInteractable.etext;
+            pressE.SetActive(true);
+            if(currentInteractable.hasSecondaryInteraction)
+            {
+                pressQ.GetComponent<Text>().text = "[Q] " + currentInteractable.qtext;
+                pressQ.SetActive(true);
+            }
         }
     }
 
@@ -87,6 +99,14 @@ public class Player : MonoBehaviour
         Interactable interactable = other.GetComponent<Interactable>();
         if(interactable == currentInteractable)
         {
+            pressE.GetComponent<Text>().text = "[E] " + currentInteractable.etext;
+            pressE.SetActive(false);
+            if(currentInteractable.hasSecondaryInteraction)
+            {
+                pressQ.GetComponent<Text>().text = "[Q] " + currentInteractable.qtext;
+                pressQ.SetActive(false);
+            }
+
             currentInteractable.ResetHighlight();
             currentInteractable = null;
         }
@@ -100,6 +120,16 @@ public class Player : MonoBehaviour
         {
             if(currentInteractable != null)
             {
+                if(currentInteractable.tag == "Canister")
+                {
+                    pressE.GetComponent<Text>().text = "[E] " + currentInteractable.etext;
+                    pressE.SetActive(false);
+                    if(currentInteractable.hasSecondaryInteraction)
+                    {
+                        pressQ.GetComponent<Text>().text = "[Q] " + currentInteractable.qtext;
+                        pressQ.SetActive(false);
+                    }
+                }
                 currentInteractable.Interact(primary);
             }
         }

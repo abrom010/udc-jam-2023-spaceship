@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     Text cryoText;
     Text fuelText;
     Text timerText;
+    Text cycleText;
+    Text distanceText;
 
     [SerializeField] private float cycleTime;
 
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            cycle = 1;
         } else if(instance != this)
         {
             Destroy(gameObject);
@@ -60,6 +63,8 @@ public class GameManager : MonoBehaviour
         cryoText = GameObject.Find("Text Value Cryo").GetComponent<Text>();
         fuelText = GameObject.Find("Text Value Fuel").GetComponent<Text>();
         timerText = GameObject.Find("Text Value Timer").GetComponent<Text>();
+        cycleText = GameObject.Find("Text Value Cycle").GetComponent<Text>();
+        distanceText = GameObject.Find("Text Value Distance").GetComponent<Text>();
 
         spaceShip.cryoManager.ComputeCycleCryoPercentage();
         spaceShip.fuelManager.ComputeCycleFuelPercentage();
@@ -76,6 +81,8 @@ public class GameManager : MonoBehaviour
         survivorText.text = spaceShip.survivorManager.GetSurvivorCount().ToString();
         cryoText.text = spaceShip.cryoManager.GetCryoPercentage().ToString();
         fuelText.text = spaceShip.fuelManager.GetFuelPercentage().ToString();
+        cycleText.text = cycle.ToString();
+        distanceText.text = (spaceShip.distanceManager.goalDistance - spaceShip.distanceManager.totalDistanceTraveled).ToString();
     }
 
     private void Update()
@@ -105,7 +112,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void EndActiveCycle()
+    public void EndActiveCycle()
     {
         PauseActiveCycle();
         ProcessCycle();
@@ -128,6 +135,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Cycles: " + cycle);
         Debug.Log("Survivors Left: " + spaceShip.survivorManager.GetSurvivorCount());
         Debug.Log("Your score: " + score);
+        SceneManager.LoadScene("GameOverScene");
     }
 
     private int CalculateScore()
@@ -142,10 +150,8 @@ public class GameManager : MonoBehaviour
     {
         cycle++;
         spaceShip.survivorManager.ComputeSurvivorsForCycle(spaceShip.cryoManager.GetCryoPercentage());
-        spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.GetFuelPercentage());
-
+        spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.ComputeCycleFuelPercentage());
         spaceShip.cryoManager.ComputeCycleCryoPercentage();
-        spaceShip.fuelManager.ComputeCycleFuelPercentage();
 
         //Debug.Log(spaceShip.fuelManager.GetFuelPercentage());
 

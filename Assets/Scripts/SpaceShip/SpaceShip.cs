@@ -11,7 +11,7 @@ public class SpaceShip
 
     public SpaceShip(int initialSurvivalCount = 100, float distanceToDestination = 1000f, float cryoPercentage = 100f, float fuelPercentage = 100f)
     {
-        survivorManager = new SurvivorManager(100);
+        survivorManager = new SurvivorManager(10000);
         distanceManager = new DistanceManager(1000f);
         cryoManager = new CryoManager(100f);
         fuelManager = new FuelManager(100f);

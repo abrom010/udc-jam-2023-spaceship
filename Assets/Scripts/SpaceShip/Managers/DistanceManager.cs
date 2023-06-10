@@ -7,16 +7,16 @@ public class DistanceManager
     public float totalDistanceTraveled;
     public float goalDistance;
 
-    private float fuelEfficiency;
+    private float fuelEfficiency = 2f;
 
     public DistanceManager(float distanceToDestination)
     {
         goalDistance = distanceToDestination;
     }
 
-    public void ComputeDistanceForCycle(float fuelPercentage)
+    public void ComputeDistanceForCycle(float fuelUsedPercentage)
     {
-        float distanceTraveled = fuelPercentage * fuelEfficiency;
+        float distanceTraveled = fuelUsedPercentage * fuelEfficiency;
         totalDistanceTraveled = totalDistanceTraveled + distanceTraveled >= goalDistance ? goalDistance : totalDistanceTraveled + distanceTraveled;
     }
 

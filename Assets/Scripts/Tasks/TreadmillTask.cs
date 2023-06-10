@@ -14,10 +14,12 @@ public class TreadmillTask : Interactable
 
     private AudioSource audioSource;
 
-    [SerializeField] private float exerciseRate = 8f;
+    [SerializeField] private float exerciseRate = 16f;
 
     private void Start()
     {
+        etext = "mount";
+        qtext = "dismount";
         audioSource = GetComponent<AudioSource>();
         hasSecondaryInteraction = true;
         treadmillDirection = (treadmillFront.position - treadmillBack.position).normalized;
@@ -35,9 +37,9 @@ public class TreadmillTask : Interactable
             }
             else
             {
-                GameManager.instance.player.animator.speed = 1.5f;
-                GameManager.instance.player.transform.position -= treadmillDirection * Time.deltaTime;
-                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() >= 100f ? 100f : GameManager.instance.player.GetFitness() + Time.deltaTime * 5f);
+                GameManager.instance.player.animator.speed = 2f;
+                GameManager.instance.player.transform.position -= treadmillDirection * Time.deltaTime * 1.5f;
+                GameManager.instance.player.SetFitness(GameManager.instance.player.GetFitness() >= 100f ? 100f : GameManager.instance.player.GetFitness() + Time.deltaTime * exerciseRate);
             }
 
             // player falls off treadmill

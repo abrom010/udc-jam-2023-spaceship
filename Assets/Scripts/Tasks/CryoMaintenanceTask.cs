@@ -9,6 +9,11 @@ public class CryoMaintenanceTask : Interactable
 
     public AudioClip iceCubeClip;
 
+    private void Start()
+    {
+        etext = "ice cubes";
+    }
+
     public override void Interact(bool primary)
     {
         if(GameManager.instance.spaceShip.cryoManager.GetCryoPercentage() < 100f)
