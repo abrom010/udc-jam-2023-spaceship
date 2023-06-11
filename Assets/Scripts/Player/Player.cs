@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
 
         if(!isStationary)
         {
+            if(velocity.magnitude > 0)
+                SetFitness(GetFitness() - Time.deltaTime * 3.25f);
             animator.SetFloat("CurrentSpeed", velocity.magnitude);
         }
         else
