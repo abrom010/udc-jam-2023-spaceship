@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: d71756d70f392194495b26443a1b825e
+  - enabled: 1
     path: Assets/Scenes/TestSceneAaron.unity
     guid: 64397fe67480dd1449285974c0d45a74
   - enabled: 1
@@ -14,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TransitionScene_B.unity
     guid: e3918606055194a489916998d422ba62
+  - enabled: 1
+    path: Assets/Scenes/Defeat_Fuel.unity
+    guid: de8286d530560004382da058ff843c0e
+  - enabled: 1
+    path: Assets/Scenes/Defeat_Survivors.unity
+    guid: ba91baf5bb6c27344ad0a56c758a3019
+  - enabled: 1
+    path: Assets/Scenes/Gameover.unity
+    guid: cb09b9dc437480e48856def298513ee2
   m_configObjects: {}
