@@ -343,7 +343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 177}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &423716862
@@ -415,7 +415,7 @@ RectTransform:
   m_GameObject: {fileID: 898303157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.81435, y: 0.81435, z: 0.81435}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 289634097}
@@ -460,12 +460,12 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: You have failed to maintain the cryogenic systems keeping the colonists
-    aboard alive.  Even if you did make it to the colony planet you would be unable
-    to survive without the necessary personnel to manage food, atmosphere and various
-    other life-supporting functions.  Alone, starving, and mad from isolation you
-    would be forced to wander an alien world, awaiting a grisley end which couldn't
-    come fast enough, leaving behind a legacy of only shame and failure at the lives
-    you couldn't deliver to their new home.
+    aboard alive.  Even if you did make it to Nova, you would be unable to survive
+    without the necessary personnel to manage food, atmosphere and various other
+    life-supporting functions.  Alone, starving, and mad from isolation you would
+    be forced to wander an alien world, awaiting a grisley end which couldn't come
+    fast enough, leaving behind a legacy of only shame and failure at the lives you
+    couldn't deliver to their new home.
 --- !u!222 &898303160
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gameover.unity
     guid: cb09b9dc437480e48856def298513ee2
+  - enabled: 1
+    path: Assets/Scenes/IntroductionScene.unity
+    guid: 42f929e6c16616f4db732fd671e990ac
+  - enabled: 1
+    path: Assets/Scenes/Defeat_Cycles.unity
+    guid: 0a267434e61574542ba13c966b6cf30e
   m_configObjects: {}
