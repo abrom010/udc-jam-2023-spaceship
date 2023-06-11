@@ -147,10 +147,10 @@ public class Player : MonoBehaviour
         {
             verticalVelocity = -0.5f;
 
-            if(Input.GetButtonDown("Jump"))
+            /*if(Input.GetButtonDown("Jump"))
             {
                 verticalVelocity = Mathf.Sqrt(jumpForce * -2f * gravity); // Calculate jump velocity
-            }
+            }*/
         }
 
         verticalVelocity += gravity * Time.deltaTime; // Apply gravity

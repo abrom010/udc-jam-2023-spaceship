@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     
 
     public int cycle = 1;
-    private int maxCycles = 100;
+    private int maxCycles = 15;
 
     public CountdownTimer timer;
     public Player player;
@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
 
     private void ProcessCycle()
     {
+        GameObject.Find("Cameras").transform.GetChild(1).gameObject.SetActive(false);
         cycle++;
         spaceShip.survivorManager.ComputeSurvivorsForCycle(spaceShip.cryoManager.GetCryoPercentage());
         if(spaceShip.survivorManager.GetSurvivorCount() <= 0)
@@ -154,21 +155,28 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Defeat_Survivors");
             return;
         }
+        if(spaceShip.fuelManager.GetFuelPercentage() <= 0)
+        {
+            SceneManager.LoadScene("Defeat_Fuel");
+            return;
+        }
+        if(cycle >= 10)
+        {
+            SceneManager.LoadScene("Defeat_Cycles");
+            return;
+        }
 
         spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.ComputeCycleFuelPercentage());
+        spaceShip.cryoManager.ComputeCycleCryoPercentage();
+
         if(spaceShip.distanceManager.totalDistanceTraveled >= spaceShip.distanceManager.goalDistance)
         {
             SceneManager.LoadScene("Gameover");
             return;
         }
 
-        Debug.Log(spaceShip.fuelManager.GetFuelPercentage());
-        if(spaceShip.fuelManager.GetFuelPercentage() <= 0)
-        {
-            SceneManager.LoadScene("Defeat_Fuel");
-            return;
-        }
-        spaceShip.cryoManager.ComputeCycleCryoPercentage();
+        
+        
 
         Destroy(timer.gameObject);
         Destroy(player.gameObject);
