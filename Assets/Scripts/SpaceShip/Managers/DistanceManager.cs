@@ -7,7 +7,7 @@ public class DistanceManager
     public float totalDistanceTraveled;
     public float goalDistance;
 
-    private float fuelEfficiency = 2f;
+    private float fuelEfficiency = 3f;
 
     public DistanceManager(float distanceToDestination)
     {

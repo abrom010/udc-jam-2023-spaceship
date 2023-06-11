@@ -100,7 +100,6 @@ public class GameManager : MonoBehaviour
 
             if(player != null)
             {
-                player.SetFitness(player.GetFitness() - Time.deltaTime * 2f);
                 fitnessBar.fillAmount = player.GetFitness() / 100f;
                 if(player.GetFitness() <= 0)
                 {
@@ -150,14 +149,26 @@ public class GameManager : MonoBehaviour
     {
         cycle++;
         spaceShip.survivorManager.ComputeSurvivorsForCycle(spaceShip.cryoManager.GetCryoPercentage());
+        if(spaceShip.survivorManager.GetSurvivorCount() <= 0)
+        {
+            SceneManager.LoadScene("Defeat_Survivors");
+            return;
+        }
+
         spaceShip.distanceManager.ComputeDistanceForCycle(spaceShip.fuelManager.ComputeCycleFuelPercentage());
+        if(spaceShip.distanceManager.totalDistanceTraveled >= spaceShip.distanceManager.goalDistance)
+        {
+            SceneManager.LoadScene("Gameover");
+            return;
+        }
+
+        Debug.Log(spaceShip.fuelManager.GetFuelPercentage());
+        if(spaceShip.fuelManager.GetFuelPercentage() <= 0)
+        {
+            SceneManager.LoadScene("Defeat_Fuel");
+            return;
+        }
         spaceShip.cryoManager.ComputeCycleCryoPercentage();
-
-        //Debug.Log(spaceShip.fuelManager.GetFuelPercentage());
-
-        /*Debug.Log("Time ran out. Cycle #" + cycle + " is starting");
-        Debug.Log("Cycles: " + cycle);
-        Debug.Log("Survivors Left: " + spaceShip.survivorManager.GetSurvivorCount());*/
 
         Destroy(timer.gameObject);
         Destroy(player.gameObject);
