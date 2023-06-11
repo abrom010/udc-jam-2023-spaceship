@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Raycast
   - Canister
+  - Shelves
   layers:
   - Default
   - TransparentFX
